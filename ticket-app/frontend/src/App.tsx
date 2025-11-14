@@ -1,0 +1,86 @@
+import React, { useState, useEffect } from 'react';
+import Dashboard from './pages/Dashboard';
+
+/**
+ * Main App component
+ * Root component of the application
+ * 
+ * @returns {JSX.Element} The root application component
+ */
+const App: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    // Check localStorage or system preference
+    const stored = localStorage.getItem('darkMode');
+    if (stored !== null) {
+      return stored === 'true';
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
+  // Apply dark mode class to html element
+  useEffect(() => {
+    const htmlElement = document.documentElement;
+    if (isDarkMode) {
+      htmlElement.classList.add('dark');
+    } else {
+      htmlElement.classList.remove('dark');
+    }
+    // Save preference to localStorage
+    localStorage.setItem('darkMode', isDarkMode.toString());
+  }, [isDarkMode]);
+
+  /**
+   * Toggle dark mode
+   */
+  const toggleDarkMode = () => {
+    setIsDarkMode((prev) => !prev);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      {/* Theme Toggle Button - Fixed position */}
+      <button
+        onClick={toggleDarkMode}
+        className="fixed top-4 right-4 z-50 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {isDarkMode ? (
+          // Sun icon for light mode
+          <svg
+            className="w-6 h-6 text-yellow-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
+        ) : (
+          // Moon icon for dark mode
+          <svg
+            className="w-6 h-6 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          </svg>
+        )}
+      </button>
+
+      {/* Main Dashboard */}
+      <Dashboard />
+    </div>
+  );
+};
+
+export default App;
