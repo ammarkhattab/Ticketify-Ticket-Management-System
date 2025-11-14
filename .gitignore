@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables and sensitive data
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Build outputs
+dist/
+build/
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Database files (if any local DBs)
+*.db
+*.sqlite
+*.sqlite3
+
+# Backend specific (if applicable)
+ticket-app/backend/node_modules/
+ticket-app/backend/.env
+ticket-app/backend/uploads/
+
+# Frontend specific
+ticket-app/frontend/node_modules/
+ticket-app/frontend/build/
+ticket-app/frontend/.env.local
+ticket-app/frontend/.env
