@@ -7,9 +7,9 @@ import { ApiResponse, Ticket, TicketCreateInput, TicketUpdateInput } from '../ty
 
 /**
  * Base URL for API requests
- * Defaults to http://localhost:3001 if REACT_APP_API_URL is not set
+ * Uses relative URL with proxy in development, or REACT_APP_API_URL in production
  */
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
 
 /**
  * Default headers for API requests
